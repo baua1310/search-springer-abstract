@@ -30,3 +30,6 @@ build
 
 # ignore properties file
 *.properties
+
+# ignore json file
+*.json

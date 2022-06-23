@@ -3,17 +3,20 @@
  */
 package de.uniregensburg;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
+import com.google.gson.JsonArray;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        System.out.println(new App().getGreeting());
-        String query = "(Online OR Internet OR Web)";
+        String query = "(Alternativ* OR Future OR Zukunft OR Zukünftig* OR Entwurf OR Draft OR Konzept* OR Concept* OR Model*) (Online OR Internet OR Web) (Werbung OR Advertising OR Ad OR Tracking) (Souverän* OR Sovereignty OR Selbstbestimmung OR Self-determination OR \"Self determination\" OR Choice-driven OR \"Choice driven\") (\"personenbezogene Daten\" OR \"personal data\" OR \"personal information\" OR Datenschutz OR privacy OR PII)";
         ApiClient apiClient = new ApiClient();
-        apiClient.performRequest(query);
+        JsonArray records = apiClient.getRecords(query);
+        System.out.println("total size: " + records.size());
+        FileWriter myWriter = new FileWriter("records.json");
+        myWriter.write(records.toString());
+        myWriter.close();
     }
 }
