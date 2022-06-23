@@ -33,3 +33,6 @@ build
 
 # ignore json file
 *.json
+
+# ignore bin folder
+app/bin
