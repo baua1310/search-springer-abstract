@@ -3,10 +3,18 @@
  */
 package de.uniregensburg;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class App {
 
@@ -15,8 +23,35 @@ public class App {
         ApiClient apiClient = new ApiClient();
         JsonArray records = apiClient.getRecords(query);
         System.out.println("total size: " + records.size());
-        FileWriter myWriter = new FileWriter("records.json");
-        myWriter.write(records.toString());
-        myWriter.close();
+                
+        List<Article> articles = new ArrayList<Article>();
+
+        for (JsonElement recordElement : records) {
+            JsonObject recordObject = recordElement.getAsJsonObject();
+            String identifier = recordObject.get("identifier").getAsString();
+            String title = recordObject.get("title").getAsString();
+            String aabstract = recordObject.get("abstract").getAsString();
+            String doi = recordObject.get("doi").getAsString();
+            JsonArray urls = recordObject.get("url").getAsJsonArray();
+            String url = null;
+            for (JsonElement urlElement : urls) {
+                JsonObject urlObject = urlElement.getAsJsonObject();
+                if (urlObject.get("format").getAsString().isEmpty()) {
+                    url = urlObject.get("value").getAsString();
+                }
+            }
+            Article article = new Article(identifier, title, aabstract, doi, url);
+            articles.add(article);
+        }
+
+        System.out.println("articles size: " + articles.size());
+
+        Search search = new Search(articles);
+        List<Article> result = search.findInAbstract(query);
+        System.out.println("Found articles: " + result.size());
+
+        for (Article article : result) {
+            System.out.println(article);
+        }
     }
 }
