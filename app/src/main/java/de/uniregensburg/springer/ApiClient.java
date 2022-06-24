@@ -20,7 +20,7 @@ import com.google.gson.JsonParser;
 
 public class ApiClient {
     
-    private static String url = "http://api.springernature.com/meta/v2/json";
+    private static String url = "https://api.springernature.com/meta/v2/json";
     private static int maxResults = 10; // maximum is 100 (p query param); 100 results in some crashes -> only querying 10 at a time is better
     // Springer is limiting request withing a certain timeslot (300 hits / minute)
     // configure max requests in a row
