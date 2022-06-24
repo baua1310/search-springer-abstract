@@ -1,4 +1,4 @@
-package de.uniregensburg;
+package de.uniregensburg.springer;
 
 import java.util.ArrayList;
 import java.util.List;

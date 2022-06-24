@@ -29,7 +29,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'de.uniregensburg.App'
+    mainClass = 'de.uniregensburg.spinger.App'
 }
 
 tasks.named('test') {

@@ -1,4 +1,4 @@
-package de.uniregensburg;
+package de.uniregensburg.springer;
 
 public class Article {
     private String identifier;

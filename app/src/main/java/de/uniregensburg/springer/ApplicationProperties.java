@@ -1,4 +1,4 @@
-package de.uniregensburg;
+package de.uniregensburg.springer;
 
 import java.io.IOException;
 import java.io.InputStream;
